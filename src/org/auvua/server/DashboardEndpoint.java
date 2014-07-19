@@ -25,16 +25,18 @@ public class DashboardEndpoint {
 				while(true) {
 					JSONObject jsonmsg = new JSONObject();
 					
+					Model model = Model.getInstance();
+					
 					// Add variables to message here
-					jsonmsg.put("surgeleft", new Double(Model.surgeLeft.getSpeed()));
-					jsonmsg.put("surgeright", new Double(Model.surgeRight.getSpeed()));
-					jsonmsg.put("heaveleft", new Double(Model.heaveLeft.getSpeed()));
-					jsonmsg.put("heaveright", new Double(Model.heaveRight.getSpeed()));
-					jsonmsg.put("sway", new Double(Model.sway.getSpeed()));
-					jsonmsg.put("missionswitch", new Boolean(Model.missionSwitch.getState()));
-					jsonmsg.put("killswitch", new Boolean(Model.killSwitch.getState()));
-					jsonmsg.put("heading", new Double(Model.compass.getHeading()));
-					jsonmsg.put("depth", new Double(Model.depthGauge.getDepth()));
+					jsonmsg.put("surgeleft", new Double(model.surgeLeft.getSpeed()));
+					jsonmsg.put("surgeright", new Double(model.surgeRight.getSpeed()));
+					jsonmsg.put("heaveleft", new Double(model.heaveLeft.getSpeed()));
+					jsonmsg.put("heaveright", new Double(model.heaveRight.getSpeed()));
+					jsonmsg.put("sway", new Double(model.sway.getSpeed()));
+					jsonmsg.put("missionswitch", new Boolean(model.missionSwitch.getState()));
+					jsonmsg.put("killswitch", new Boolean(model.killSwitch.getState()));
+					jsonmsg.put("heading", new Double(model.compass.getHeading()));
+					jsonmsg.put("depth", new Double(model.depthGauge.getDepth()));
 					
 					for(Session peer : peers) {
 						// Add peer-specific variables to message here

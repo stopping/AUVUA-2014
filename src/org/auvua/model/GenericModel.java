@@ -3,19 +3,13 @@ package org.auvua.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.auvua.model.actuators.Motor;
-import org.auvua.model.sensors.Compass;
-import org.auvua.model.sensors.DepthGauge;
-import org.auvua.model.sensors.Switch;
-import org.auvua.sim.MockHardware;
+import org.json.simple.JSONObject;
 
-public class Model {
+public class GenericModel {
 	
-	public Map<String,Object> robot = new HashMap<String,Object>();
-	
-	private static final Model instance = new Model();
-	
-	public Model() {
+	@SuppressWarnings("unchecked")
+	public static void main( String[] args ) {
+		
 		Map<String,Object> hardware = newMap();
 		hardware.put("surgeLeft",     ComponentFactory.create(Component.MOTOR));
 		hardware.put("surgeRight",    ComponentFactory.create(Component.MOTOR));
@@ -31,28 +25,15 @@ public class Model {
 		
 		Map<String,Object> controlLoops = newMap();
 		
-		robot = newMap();
+		Map<String,Object> robot = newMap();
 		robot.put("hardware", hardware);
 		robot.put("imageFilters", imageFilters);
 		robot.put("controlLoops", controlLoops);
-	}
-	
-	public static Model getInstance() {
-		return instance;
+		
+		System.out.println(new JSONObject(robot).toJSONString());
 	}
 	
 	public static Map<String,Object> newMap() {
 		return new HashMap<String,Object>();
 	}
-	
-	public void getState() {
-		// Receive hardware update via ZMQ
-		MockHardware.getInstance().getState();
-	}
-
-	public void setState() {
-		// Send hardware update via ZMQ
-		MockHardware.getInstance().setState();
-	}
-
 }
